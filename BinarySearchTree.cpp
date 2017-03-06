@@ -192,7 +192,14 @@ int BinarySearchTree::deleteMin( Node* aRootPtr )
         {
             if( mMinParent )
             {
-                mMinParent->setLeftChild( nullptr );
+                if(mMinParent->getRightChild() == aRootPtr)
+                {
+                    mMinParent->setRightChild(nullptr);
+                }
+                else
+                {
+                    mMinParent->setLeftChild(nullptr);
+                }
             }
             else
             {
