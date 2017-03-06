@@ -44,11 +44,11 @@ bool BinarySearchTree::insert( int aVal, Node* aRootPtr )
 
     int currentValue = aRootPtr->getValue();
 
-    if( aVal == currentValue )
+    /*if( aVal == currentValue )
     {
-        return false;
+    return false;
     }
-
+    */
     if( aVal < currentValue )
     {
         if( aRootPtr->getLeftChild() )
@@ -62,7 +62,7 @@ bool BinarySearchTree::insert( int aVal, Node* aRootPtr )
         }
     }
 
-    if( aVal > currentValue )
+    if( aVal >= currentValue )
     {
         if( aRootPtr->getRightChild() )
         {
@@ -263,7 +263,7 @@ int BinarySearchTree::deleteMax( Node* aRootPtr )
     }
 }
 
-bool BinarySearchTree::remove( int aVal )
+bool BinarySearchTree::remove( int aVal, bool& aRemovedAtLeastOnce )
 {
     if( mRoot )
     {
@@ -277,7 +277,7 @@ bool BinarySearchTree::remove( int aVal )
         Node* targetNode = search( aVal );  // find the current node based off the value, note that we get a parent using search
                                             // by way of mSearchParent
 
-        // Use mSearchParent to determine what type of child the targetNode is
+                                            // Use mSearchParent to determine what type of child the targetNode is
         if( mSearchParent )
         {
             if( mSearchParent->getLeftChild() == targetNode )
@@ -358,6 +358,7 @@ bool BinarySearchTree::remove( int aVal )
 
                 delete targetNode;
             }
+            aRemovedAtLeastOnce = true;
             return true;
         }
         else
@@ -374,6 +375,15 @@ bool BinarySearchTree::remove( int aVal )
 }
 
 // Order traversals for output:
+
+bool BinarySearchTree::removeAll( int aVal )
+{
+    bool removedAtLeastOnce = false;
+
+    while( remove( aVal, removedAtLeastOnce ) );
+
+    return removedAtLeastOnce;
+}
 
 void BinarySearchTree::preorder()
 {

@@ -57,7 +57,14 @@ public:
     * @param aVal The value to be removed.
     * @return A boolean variable indicating if removal was successful (returns false if the value was not found).
     */
-    bool remove( int aVal );
+    bool remove( int aVal, bool& aRemovedAtLeastOnce );
+
+    /**
+    * Removes all instances of aVal from the tree.
+    * @param aVal The value to be removed.
+    * @return A boolean variable indicating if removal was successful (returns false if the value was not found).
+    */
+    bool removeAll( int aVal );
 
     /**
     * Displays values in the tree using the preorder algorithm.
