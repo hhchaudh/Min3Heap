@@ -188,12 +188,12 @@ int main()
     for( unsigned int i = 0; i < 4; i++ )
     {
         long n = nValues[i];
-        long* testArray = new long[n];
 
         for( int j = 0; j < 5; j++ )
         {
-            srand( j + 5 );
+            srand( j + 15 );
             int currentDurationIndex = i * 5 + j;
+            long* testArray = new long[n];
 
             for( long k = 0; k < n; k++ )
             {
@@ -212,11 +212,12 @@ int main()
             }
             treeBuildDuration[currentDurationIndex] = myTimer.stop();
 
-            double x = rand() / (double) RAND_MAX;
 
-            if( x >= 0 && x < 0.1 )
+            for(long z = 0; z < ( 0.1 * n ); z++)
             {
-                for( long z = 0; z < ( 0.1 * n ); z++ )
+                double x = rand() / (double) RAND_MAX;
+
+                if( x >= 0 && x < 0.1 )
                 {
                     myTimer.start();
                     min3Heap.deleteMin();
@@ -226,11 +227,8 @@ int main()
                     bst.deletemin();
                     bstOperationsDuration[currentDurationIndex] += myTimer.stop();
                 }
-
-            }
-            else if( x >= 0.1 && x < 0.2 )
-            {
-                for( long z = 0; z < ( 0.1 * n ); z++ )
+                else
+                if( x >= 0.1 && x < 2 )
                 {
                     myTimer.start();
                     min3Heap.deleteMax();
@@ -240,39 +238,37 @@ int main()
                     bst.deletemax();
                     bstOperationsDuration[currentDurationIndex] += myTimer.stop();
                 }
-            }
-            else if( x >= 0.2 && x < 0.5 )
-            {
-                long valueToRemove = ( rand() % ( 4 * n ) ) + 1;
+                else if( x >= 0.2 && x < 0.5 )
+                {
+                    long valueToRemove = ( rand() % ( 4 * n ) ) + 1;
 
 
-                myTimer.start();
-                min3Heap.remove( valueToRemove );
-                heapOperationsDuration[currentDurationIndex] = myTimer.stop();
+                    myTimer.start();
+                    min3Heap.remove( valueToRemove );
+                    heapOperationsDuration[currentDurationIndex] += myTimer.stop();
 
-                myTimer.start();
-                bst.removeAll( valueToRemove );
-                bstOperationsDuration[currentDurationIndex] = myTimer.stop();
-            }
-            else
-            {
-                for( long z = 0; z < ( 0.1 * n ); z++ )
+                    myTimer.start();
+                    bst.removeAll( valueToRemove );
+                    bstOperationsDuration[currentDurationIndex] += myTimer.stop();
+                }
+                else
                 {
                     long valueToInsert = ( rand() % ( 4 * n ) ) + 1;
 
                     myTimer.start();
                     min3Heap.insert( valueToInsert );
-                    heapOperationsDuration[currentDurationIndex] = myTimer.stop();
+                    heapOperationsDuration[currentDurationIndex] += myTimer.stop();
 
                     myTimer.start();
                     bst.insert( valueToInsert );
-                    bstOperationsDuration[currentDurationIndex] = myTimer.stop();
+                    bstOperationsDuration[currentDurationIndex] += myTimer.stop();
                 }
             }
-        }
 
+            delete[] testArray;
+        }
+        std::cout << "Complete loop " << i << " with n: " << n << std::endl;
         std::cout << std::endl;
-        delete[] testArray;
     }
 
     for( int i = 0; i < 4; i++ )
@@ -287,10 +283,12 @@ int main()
 
         for( int j = 0; j < 5; j++ )
         {
-            heapBuildSum += heapBuildDuration[( i * 5 + j )];
-            bstBuildSum += treeBuildDuration[( i * 5 + j )];
-            heapOperationsSum += heapOperationsDuration[( i * 5 + j )];
-            bstOperationsSum += bstOperationsDuration[( i * 5 + j )];
+            int currentDurationIndex = i * 5 + j;
+
+            heapBuildSum += heapBuildDuration[currentDurationIndex];
+            bstBuildSum += treeBuildDuration[currentDurationIndex];
+            heapOperationsSum += heapOperationsDuration[currentDurationIndex];
+            bstOperationsSum += bstOperationsDuration[currentDurationIndex];
         }
 
         std::cout << "For n = " << nValues[i] << ":" << std::endl;
@@ -305,4 +303,3 @@ int main()
 
     return 0;
 }
-

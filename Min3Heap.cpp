@@ -30,6 +30,7 @@ Min3Heap::Min3Heap( long aSize, long values[], long valuesSize ) :
     mNumNodes(0),
     mHeapArray(new long[aSize])
 {
+    std::cout << "Inserting with size " << aSize << std::endl;
     for( long i = 0; i < valuesSize; i++ )
     {
         bottomUpInsert( values[i] );
@@ -202,27 +203,45 @@ long Min3Heap::deleteMax()
 
 void Min3Heap::search( long aSearchVal, long aIndex, long & aFoundIndex )
 {
-    if( aIndex == -1 )
-    {
-        return;
-    }
+    // if( aIndex == -1 )
+    // {
+    //     return;
+    // }
+    //
+    // else if( aFoundIndex > -1 )
+    // {
+    //     return;
+    // }
+    //
+    // if(aSearchVal < mHeapArray[aIndex])
+    // {
+    //     return;
+    // }
+    //
+    // else if( aSearchVal == mHeapArray[aIndex] )
+    // {
+    //     aFoundIndex = aIndex;
+    //     return;
+    // }
+    //
+    // else if( aSearchVal > mHeapArray[aIndex] )
+    // {
+    //     for( long i = 1; i <= 3; i++ )
+    //     {
+    //         search( aSearchVal, getNthChild( aIndex, i ), aFoundIndex );
+    //         if( aFoundIndex > -1 )
+    //         {
+    //             return;
+    //         }
+    //     }
+    // }
 
-    if( aFoundIndex > -1 )
+    for(long i = 0; i < mSIZE; i++)
     {
-        return;
-    }
-
-    if( aSearchVal == mHeapArray[aIndex] )
-    {
-        aFoundIndex = aIndex;
-        return;
-    }
-
-    if( aSearchVal > mHeapArray[aIndex] )
-    {
-        for( long i = 1; i <= 3; i++ )
+        if(mHeapArray[i] == aSearchVal)
         {
-            search( aSearchVal, getNthChild( aIndex, i ), aFoundIndex );
+            aFoundIndex = i;
+            return;
         }
     }
 }
