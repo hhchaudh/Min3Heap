@@ -203,47 +203,34 @@ long Min3Heap::deleteMax()
 
 void Min3Heap::search( long aSearchVal, long aIndex, long & aFoundIndex )
 {
-    // if( aIndex == -1 )
-    // {
-    //     return;
-    // }
-    //
-    // else if( aFoundIndex > -1 )
-    // {
-    //     return;
-    // }
-    //
-    // if(aSearchVal < mHeapArray[aIndex])
-    // {
-    //     return;
-    // }
-    //
-    // else if( aSearchVal == mHeapArray[aIndex] )
-    // {
-    //     aFoundIndex = aIndex;
-    //     return;
-    // }
-    //
-    // else if( aSearchVal > mHeapArray[aIndex] )
-    // {
-    //     for( long i = 1; i <= 3; i++ )
-    //     {
-    //         search( aSearchVal, getNthChild( aIndex, i ), aFoundIndex );
-    //         if( aFoundIndex > -1 )
-    //         {
-    //             return;
-    //         }
-    //     }
-    // }
-
-    for(long i = 0; i < mSIZE; i++)
+    if( aFoundIndex > -1 )
     {
-        if(mHeapArray[i] == aSearchVal)
+        return;
+    }
+    else if( aSearchVal == mHeapArray[aIndex] )
+    {
+        aFoundIndex = aIndex;
+        return;
+    }
+    else if( aSearchVal > mHeapArray[aIndex] )
+    {
+        for( long i = 1; i <= 3; i++ )
         {
-            aFoundIndex = i;
-            return;
+            if(getNthChild(aIndex, i) > -1)
+            {
+                search( aSearchVal, getNthChild( aIndex, i ), aFoundIndex );
+            }
         }
     }
+
+    // for(long i = 0; i < mSIZE; i++)
+    // {
+    //     if(mHeapArray[i] == aSearchVal)
+    //     {
+    //         aFoundIndex = i;
+    //         return;
+    //     }
+    // }
 }
 
 void Min3Heap::heapifyDown( const long aValueToMove, const long aIndex )

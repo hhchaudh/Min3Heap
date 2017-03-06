@@ -217,7 +217,7 @@ int main()
             {
                 double x = rand() / (double) RAND_MAX;
 
-                if( x >= 0 && x < 0.1 )
+                if( x >= 0 && x < 0.5 )
                 {
                     myTimer.start();
                     min3Heap.deleteMin();
@@ -227,30 +227,30 @@ int main()
                     bst.deletemin();
                     bstOperationsDuration[currentDurationIndex] += myTimer.stop();
                 }
-                else
-                if( x >= 0.1 && x < 2 )
-                {
-                    myTimer.start();
-                    min3Heap.deleteMax();
-                    heapOperationsDuration[currentDurationIndex] += myTimer.stop();
-
-                    myTimer.start();
-                    bst.deletemax();
-                    bstOperationsDuration[currentDurationIndex] += myTimer.stop();
-                }
-                else if( x >= 0.2 && x < 0.5 )
-                {
-                    long valueToRemove = ( rand() % ( 4 * n ) ) + 1;
-
-
-                    myTimer.start();
-                    min3Heap.remove( valueToRemove );
-                    heapOperationsDuration[currentDurationIndex] += myTimer.stop();
-
-                    myTimer.start();
-                    bst.removeAll( valueToRemove );
-                    bstOperationsDuration[currentDurationIndex] += myTimer.stop();
-                }
+                // else
+                // if( x >= 0.1 && x < 2 )
+                // {
+                //     myTimer.start();
+                //     min3Heap.deleteMax();
+                //     heapOperationsDuration[currentDurationIndex] += myTimer.stop();
+                //
+                //     myTimer.start();
+                //     bst.deletemax();
+                //     bstOperationsDuration[currentDurationIndex] += myTimer.stop();
+                // }
+                // else if( x >= 0.2 && x < 0.5 )
+                // {
+                //     long valueToRemove = ( rand() % ( 4 * n ) ) + 1;
+                //
+                //
+                //     myTimer.start();
+                //     min3Heap.remove( valueToRemove );
+                //     heapOperationsDuration[currentDurationIndex] += myTimer.stop();
+                //
+                //     myTimer.start();
+                //     bst.removeAll( valueToRemove );
+                //     bstOperationsDuration[currentDurationIndex] += myTimer.stop();
+                // }
                 else
                 {
                     long valueToInsert = ( rand() % ( 4 * n ) ) + 1;
