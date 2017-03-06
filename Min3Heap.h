@@ -6,32 +6,33 @@
 class Min3Heap
 {
 public:
-    Min3Heap( int aSize );
-    Min3Heap( int aSize, Queue<int>& aQueue );
-    Min3Heap( int aSize, int values[], int valuesSize );
+    Min3Heap( long aSize );
+    Min3Heap( long aSize, Queue<long>& aQueue );
+    Min3Heap( long aSize, long values[], long valuesSize );
     ~Min3Heap();
-    int search( int aSearchValue );
-    void bottomUpInsert( const int aValue );
-    void insert( const int aValue );
-    bool remove( const int aValue );
+    long search( long aSearchValue );
+    void bottomUpInsert( const long aValue );
+    void insert( const long aValue );
+    bool remove( const long aValue );
     void levelOrderDisplay();
-    int deleteMin();
-    int deleteMax();
+    long deleteMin();
+    long deleteMax();
 private:
-    int findSmallestChildIndex( int aValueToMove, int aIndex ) const;
-    void search( int aSearchVal, int aIndex, int& aFoundIndex );
-    void heapifyDown( const int aValueToMove, const int aIndex );
-    void heapifyUp( int aValueToMove, int aIndex );
-    bool isParent( int aIndex ) const;
-    int getParent( int aIndex ) const;
-    bool nthChildExists( int aIndex, int nthChild ) const;
-    int getNthChild( int aIndex, int aNthChild ) const;
-    int pow( const int exponent ) const;
+    long findSmallestChildIndex( long aValueToMove, long aIndex ) const;
+    void search( long aSearchVal, long aIndex, long& aFoundIndex );
+    void heapifyDown( const long aValueToMove, const long aIndex );
+    void heapifyUp( long aValueToMove, long aIndex );
+    bool isParent( long aIndex ) const;
+    long getParent( long aIndex ) const;
+    bool nthChildExists( long aIndex, long nthChild ) const;
+    long getNthChild( long aIndex, long aNthChild ) const;
+    long pow( const long exponent ) const;
     bool isEmpty() const;
-    int findMaxIndex();
-    int lastParentIndex();
-    int mNumNodes;
-    const unsigned int mSIZE;
-    int* mHeapArray;
+    long findMaxIndex();
+    long lastParentIndex();
+
+    long mNumNodes;
+    const long mSIZE;
+    long* mHeapArray;
 };
 #endif // !MIN_3_HEAP_H
