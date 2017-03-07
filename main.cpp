@@ -43,12 +43,12 @@ public:
 
 int main()
 {
-    Timer heapTimer;
-    Timer bstTimer;
+    Timer myTimer;
     double heapBuildDuration[20];
     double bstBuildDuration[20];
     double heapOperationsDuration[20] = { };
     double bstOperationsDuration[20] = { };
+    double x;
 
     long nValues[] = { 50000, 100000, 200000, 400000 };
 
@@ -67,55 +67,67 @@ int main()
                 testArray[k] = ( rand() % ( 4 * n ) ) + 1;
             }
 
-            heapTimer.start();
+            myTimer.start();
             Min3Heap min3Heap( n, testArray, n );
-            heapBuildDuration[currentDurationIndex] = heapTimer.stop();
+            heapBuildDuration[currentDurationIndex] = myTimer.stop();
 
-            bstTimer.start();
+            myTimer.start();
             BinarySearchTree bst;
             for( long k = 0; k < n; k++ )
             {
                 bst.insert( testArray[k] );
             }
-            bstBuildDuration[currentDurationIndex] = bstTimer.stop();
+            bstBuildDuration[currentDurationIndex] = myTimer.stop();
 
-            heapTimer.start();
-            bstTimer.start();
             for( long z = 0; z < ( 0.1 * n ); z++ )
             {
-                double x = rand() / (double) RAND_MAX;
+                x = rand() / (double) RAND_MAX;
 
                 if( x >= 0 && x < 0.5 )
                 {
+                    myTimer.start();
                     min3Heap.deleteMin();
+                    heapOperationsDuration[currentDurationIndex] += myTimer.stop();
 
+                    myTimer.start();
                     bst.deletemin();
+                    bstOperationsDuration[currentDurationIndex] += myTimer.stop();
                 }
                 else if( x >= 0.1 && x < 2 )
                 {
+                    myTimer.start();
                     min3Heap.deleteMax();
+                    heapOperationsDuration[currentDurationIndex] += myTimer.stop();
 
+                    myTimer.start();
                     bst.deletemax();
+                    bstOperationsDuration[currentDurationIndex] += myTimer.stop();
                 }
                 else if( x >= 0.2 && x < 0.5 )
                 {
                     long valueToRemove = ( rand() % ( 4 * n ) ) + 1;
 
+                    myTimer.start();
                     min3Heap.remove( valueToRemove );
+                    heapOperationsDuration[currentDurationIndex] += myTimer.stop();
 
+                    myTimer.start();
                     bst.removeAll( valueToRemove );
+                    bstOperationsDuration[currentDurationIndex] += myTimer.stop();
                 }
                 else
                 {
                     long valueToInsert = ( rand() % ( 4 * n ) ) + 1;
 
+                    myTimer.start();
                     min3Heap.insert( valueToInsert );
+                    heapOperationsDuration[currentDurationIndex] += myTimer.stop();
 
+                    myTimer.start();
                     bst.insert( valueToInsert );
+                    bstOperationsDuration[currentDurationIndex] += myTimer.stop();
                 }
             }
-            heapOperationsDuration[currentDurationIndex] = heapTimer.stop();
-            bstOperationsDuration[currentDurationIndex] = bstTimer.stop();
 
             delete[] testArray;
         }
