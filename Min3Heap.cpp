@@ -30,7 +30,6 @@ Min3Heap::Min3Heap( long aSize, long values[], long valuesSize ) :
     mNumNodes(0),
     mHeapArray(new long[aSize])
 {
-    std::cout << "Inserting with size " << aSize << std::endl;
     for( long i = 0; i < valuesSize; i++ )
     {
         bottomUpInsert( values[i] );
@@ -223,14 +222,14 @@ void Min3Heap::search( long aSearchVal, long aIndex, long & aFoundIndex )
         }
     }
 
-    // for(long i = 0; i < mSIZE; i++)
-    // {
-    //     if(mHeapArray[i] == aSearchVal)
-    //     {
-    //         aFoundIndex = i;
-    //         return;
-    //     }
-    // }
+//     for(long i = 0; i < mSIZE; i++)
+//     {
+//         if(mHeapArray[i] == aSearchVal)
+//         {
+//             aFoundIndex = i;
+//             return;
+//         }
+//     }
 }
 
 void Min3Heap::heapifyDown( const long aValueToMove, const long aIndex )

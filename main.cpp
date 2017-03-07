@@ -177,9 +177,10 @@ public:
 
 int main()
 {
-    Timer myTimer;
+    Timer heapTimer;
+    Timer bstTimer;
     double heapBuildDuration[20];
-    double treeBuildDuration[20];
+    double bstBuildDuration[20];
     double heapOperationsDuration[20] = { };
     double bstOperationsDuration[20] = { };
 
@@ -200,70 +201,55 @@ int main()
                 testArray[k] = ( rand() % ( 4 * n ) ) + 1;
             }
 
-            myTimer.start();
+            heapTimer.start();
             Min3Heap min3Heap( n, testArray, n );
-            heapBuildDuration[currentDurationIndex] = myTimer.stop();
+            heapBuildDuration[currentDurationIndex] = heapTimer.stop();
 
-            myTimer.start();
+            bstTimer.start();
             BinarySearchTree bst;
             for( long k = 0; k < n; k++ )
             {
                 bst.insert( testArray[k] );
             }
-            treeBuildDuration[currentDurationIndex] = myTimer.stop();
+            bstBuildDuration[currentDurationIndex] = bstTimer.stop();
 
-
-            for(long z = 0; z < ( 0.1 * n ); z++)
+            heapTimer.start();
+            bstTimer.start();
+            for( long z = 0; z < ( 0.1 * n ); z++ )
             {
                 double x = rand() / (double) RAND_MAX;
 
                 if( x >= 0 && x < 0.5 )
                 {
-                    myTimer.start();
                     min3Heap.deleteMin();
-                    heapOperationsDuration[currentDurationIndex] += myTimer.stop();
 
-                    myTimer.start();
                     bst.deletemin();
-                    bstOperationsDuration[currentDurationIndex] += myTimer.stop();
                 }
-                // else
-                // if( x >= 0.1 && x < 2 )
-                // {
-                //     myTimer.start();
-                //     min3Heap.deleteMax();
-                //     heapOperationsDuration[currentDurationIndex] += myTimer.stop();
-                //
-                //     myTimer.start();
-                //     bst.deletemax();
-                //     bstOperationsDuration[currentDurationIndex] += myTimer.stop();
-                // }
-                // else if( x >= 0.2 && x < 0.5 )
-                // {
-                //     long valueToRemove = ( rand() % ( 4 * n ) ) + 1;
-                //
-                //
-                //     myTimer.start();
-                //     min3Heap.remove( valueToRemove );
-                //     heapOperationsDuration[currentDurationIndex] += myTimer.stop();
-                //
-                //     myTimer.start();
-                //     bst.removeAll( valueToRemove );
-                //     bstOperationsDuration[currentDurationIndex] += myTimer.stop();
-                // }
+                else if( x >= 0.1 && x < 2 )
+                {
+                    min3Heap.deleteMax();
+
+                    bst.deletemax();
+                }
+                else if( x >= 0.2 && x < 0.5 )
+                {
+                    long valueToRemove = ( rand() % ( 4 * n ) ) + 1;
+
+                    min3Heap.remove( valueToRemove );
+
+                    bst.removeAll( valueToRemove );
+                }
                 else
                 {
                     long valueToInsert = ( rand() % ( 4 * n ) ) + 1;
 
-                    myTimer.start();
                     min3Heap.insert( valueToInsert );
-                    heapOperationsDuration[currentDurationIndex] += myTimer.stop();
 
-                    myTimer.start();
                     bst.insert( valueToInsert );
-                    bstOperationsDuration[currentDurationIndex] += myTimer.stop();
                 }
             }
+            heapOperationsDuration[currentDurationIndex] = heapTimer.stop();
+            bstOperationsDuration[currentDurationIndex] = bstTimer.stop();
 
             delete[] testArray;
         }
@@ -286,7 +272,7 @@ int main()
             int currentDurationIndex = i * 5 + j;
 
             heapBuildSum += heapBuildDuration[currentDurationIndex];
-            bstBuildSum += treeBuildDuration[currentDurationIndex];
+            bstBuildSum += bstBuildDuration[currentDurationIndex];
             heapOperationsSum += heapOperationsDuration[currentDurationIndex];
             bstOperationsSum += bstOperationsDuration[currentDurationIndex];
         }
@@ -303,3 +289,4 @@ int main()
 
     return 0;
 }
+
